@@ -1,8 +1,8 @@
-const fs = require('fs');
+// const fs = require('fs');
 
-const content = fs.readFileSync('./text.txt');
+// const content = fs.readFileSync('./text.txt');
 
-console.log('content', content);
+// console.log('content', content);
 
 // Some random text
 
@@ -33,4 +33,14 @@ console.log('content', content);
      > */
 }
 
-console.log('content in utf-8', content.toString('utf-8'));
+// console.log('content in utf-8', content.toString('utf-8'));
+
+const fs = require('fs/promises');
+
+(async () => {
+  const watcher = fs.watch('./');
+
+  for await (const event of watcher) {
+    console.log('event', event);
+  }
+})();
