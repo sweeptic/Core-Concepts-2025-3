@@ -50,7 +50,7 @@ const fs = require('fs/promises');
     const length = buff.byteLength;
     const position = 0;
     const content = await commandFileHandler.read(buff, offset, length, position);
-    console.log('content', content);
+    console.log('buff', buff.toString('utf-8'));
   });
 
   // watcher
