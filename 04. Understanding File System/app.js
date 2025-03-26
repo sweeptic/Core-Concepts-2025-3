@@ -35,12 +35,27 @@
 
 // console.log('content in utf-8', content.toString('utf-8'));
 
+// open
+// read
+
 const fs = require('fs/promises');
 
 (async () => {
-  const watcher = fs.watch('./');
+  const commandFileHandler = await fs.open('./command.txt', 'r');
 
+  commandFileHandler.on('change', async () => {
+    const size = (await commandFileHandler.stat()).size;
+    const buff = Buffer.alloc(size);
+    const offset = 0;
+    const length = buff.byteLength;
+    const position = 0;
+    const content = await commandFileHandler.read(buff, offset, length, position);
+    console.log('content', content);
+  });
+
+  // watcher
+  const watcher = fs.watch('./command.txt');
   for await (const event of watcher) {
-    console.log('event', event);
+    commandFileHandler.emit('change');
   }
 })();
