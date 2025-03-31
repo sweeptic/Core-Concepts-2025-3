@@ -139,7 +139,7 @@ const fs = require('fs/promises');
   let index = 0;
   let drainedNum = 0;
 
-  const numberOfWrites = 1000;
+  const numberOfWrites = 1000000;
 
   function writeMany() {
     for (index; index < numberOfWrites; index++) {
