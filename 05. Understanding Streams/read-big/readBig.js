@@ -8,6 +8,10 @@ const fs = require('fs/promises');
   const streamWrite = fileHandleWrite.createWriteStream();
 
   streamRead.on('data', (chunk) => {
+    const numbers = chunk.toString('utf-8').split(' ');
+
+    console.log('numbers', numbers);
+
     // console.log('chunk', chunk);
     // console.log('default high watermark: ', chunk.length);
 
@@ -22,9 +26,5 @@ const fs = require('fs/promises');
   streamWrite.on('drain', () => {
     streamRead.resume();
     console.log('drain');
-  });
-
-  streamWrite.on('finish', () => {
-    console.log('FINISH');
   });
 })();
