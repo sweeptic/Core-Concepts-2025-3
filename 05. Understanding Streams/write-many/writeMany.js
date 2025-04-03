@@ -133,13 +133,13 @@
 const fs = require('fs/promises');
 
 (async () => {
-  const filehandle = await fs.open('test.txt', 'w');
+  const filehandle = await fs.open('text-gigantic.txt', 'w');
   const stream = filehandle.createWriteStream();
 
   let index = 0;
   let drainedNum = 0;
 
-  const numberOfWrites = 1000000;
+  const numberOfWrites = 10000000;
 
   function writeMany() {
     for (index; index < numberOfWrites; index++) {
