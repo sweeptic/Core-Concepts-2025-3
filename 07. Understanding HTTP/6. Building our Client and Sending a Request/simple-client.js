@@ -10,18 +10,31 @@ const request = http.request({
   path: '/create-post',
   headers: {
     'Content-Type': 'application/json',
-    // 'Content-Length': 16,
-    'Content-Length': Buffer.byteLength(JSON.stringify({ message: 'Hi there!' }), 'utf-8'),
+    name: 'Joe',
   },
 });
 
-//  'transfer-encoding': 'chunked'
-// 'Content-Length': 16,
+// This event is emitted only once
+request.on('response', (response) => {
+  console.log('--------- STATUS: ---------');
+  console.log(response.statusCode);
 
-request.on('response', () => {});
+  console.log('--------- HEADERS: ---------');
+  console.log(response.headers);
 
-request.write(JSON.stringify({ message: 'Hi there!' }));
-request.write(JSON.stringify({ message: 'Hi there 2!' }));
-request.write(JSON.stringify({ message: 'Hi there 3!' }));
+  console.log('--------- BODY: ---------');
+  response.on('data', (chunk) => {
+    console.log(chunk.toString('utf-8'));
+  });
 
-request.end(JSON.stringify({ message: 'Hi there 4!' }));
+  response.on('end', () => {
+    console.log('No more data in response.');
+  });
+});
+
+request.end(
+  JSON.stringify({
+    title: 'Title of my post',
+    body: 'This is some text and more and more.',
+  })
+);
