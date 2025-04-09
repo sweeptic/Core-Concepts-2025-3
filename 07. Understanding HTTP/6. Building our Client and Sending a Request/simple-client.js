@@ -31,7 +31,6 @@ request.on('response', (response) => {
     console.log('No more data in response.');
   });
 });
-
 request.end(
   JSON.stringify({
     title: 'Title of my post',
